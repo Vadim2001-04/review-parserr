@@ -44,7 +44,6 @@ public class ReviewService {
             futures.add(future);
         }
 
-        // Ждём завершения
         futures.forEach(f -> {
             try {
                 f.get();
@@ -53,7 +52,6 @@ public class ReviewService {
             }
         });
 
-        // Сохраняем в БД
         List<Review> toSave = new ArrayList<>(tempQueue);
         reviewRepository.saveAll(toSave);
         log.info("Сохранено {} отзывов в БД", toSave.size());
@@ -63,7 +61,7 @@ public class ReviewService {
         List<Review> all = reviewRepository.findAll();
 
         return all.stream()
-                .parallel() // parallelStream
+                .parallel()
                 .filter(r -> r.getRating() >= minRating)
                 .sorted((r1, r2) -> {
                     if ("date".equalsIgnoreCase(sortBy)) {
@@ -73,5 +71,10 @@ public class ReviewService {
                     }
                 })
                 .collect(Collectors.toList());
+    }
+
+    // Пример использования примитива синхронизации
+    public synchronized void incrementCounter() {
+        log.info("Синхронизированный метод вызван потоком: {}", Thread.currentThread().getName());
     }
 }

@@ -28,3 +28,7 @@ Content-Type: application/json
 ![img_1.png](img_1.png)
 GET http://localhost:8080/api/reviews?minRating=4&sortBy=rating
 
+Тест простого потока
+![img_2.png](img_2.png)
+GET http://localhost:8080/api/reviews/test-thread
+

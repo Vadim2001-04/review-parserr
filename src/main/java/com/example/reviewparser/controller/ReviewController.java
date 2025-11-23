@@ -1,6 +1,7 @@
 package com.example.reviewparser.controller;
 
 import com.example.reviewparser.service.ReviewService;
+import com.example.reviewparser.service.SimpleThreadExample;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 public class ReviewController {
 
     private final ReviewService reviewService;
+    private final SimpleThreadExample simpleThreadExample;
 
     @PostMapping("/parse")
     public ResponseEntity<String> parseReviews(@RequestBody List<String> urls) {
@@ -29,5 +31,11 @@ public class ReviewController {
             @RequestParam(defaultValue = "rating") String sortBy) {
         List<?> reviews = reviewService.getReviews(minRating, sortBy);
         return ResponseEntity.ok(reviews);
+    }
+
+    @GetMapping("/test-thread")
+    public ResponseEntity<String> testThread() {
+        simpleThreadExample.startInNewThread();
+        return ResponseEntity.ok("Запущен простой поток");
     }
 }

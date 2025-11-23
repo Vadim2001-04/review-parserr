@@ -17,10 +17,9 @@ public class ReviewScheduler {
         this.reviewService = reviewService;
     }
 
-    // Запуск каждые 30 минут (для демонстрации)
     @Scheduled(fixedRate = 1800000) // 30 минут
     public void scheduledParse() {
-        log.info("Запуск планового парсинга...");
+        log.info("Запуск планового парсинга... (поток: {})", Thread.currentThread().getName());
         List<String> urls = List.of(
                 "https://www.ozon.ru/product/emulated-1",
                 "https://www.ozon.ru/product/emulated-2"

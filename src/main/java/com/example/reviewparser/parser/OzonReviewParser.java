@@ -18,7 +18,6 @@ public class OzonReviewParser {
     public List<Review> parseReviews(String productUrl) {
         log.info("Парсинг URL: {}", productUrl);
 
-        // Эмуляция задержки и данных
         try {
             Thread.sleep(500 + random.nextInt(1000));
         } catch (InterruptedException e) {
@@ -27,13 +26,13 @@ public class OzonReviewParser {
         }
 
         List<Review> reviews = new ArrayList<>();
-        int count = 2 + random.nextInt(3); // 2–4 отзыва
+        int count = 2 + random.nextInt(3);
 
         for (int i = 0; i < count; i++) {
             Review r = new Review();
             r.setAuthor("Пользователь " + (1000 + random.nextInt(9000)));
             r.setText("Товар понравился! Качество отличное. Доставка быстрая.");
-            r.setRating(4 + random.nextInt(2)); // 4 или 5
+            r.setRating(4 + random.nextInt(2));
             r.setDate(LocalDateTime.now().minusDays(random.nextInt(10)));
             r.setSource("Ozon");
             r.setProductUrl(productUrl);
